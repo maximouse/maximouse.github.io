@@ -9,7 +9,7 @@ body{
     background: #f2f2f2;
     font-family: sans-serif;
     color: #333;
-    text-shadow: 1px 1px 1px #eee, 1px 1px 1px #333;
+    text-shadow: 1px 1px 0px #eee, 1px 1px 1px #333;
 }
 .title{
     text-align: center;
@@ -33,9 +33,9 @@ span{
     font-size: 50px;
     display: inline;
     position: inherit;
-
     z-index: 20;
 }
+
 #main-container{
     width: 640px;
     height: 480px;
@@ -47,6 +47,7 @@ span{
     z-index: 5000;
 
 }
+
 #win-button{
     display: block;
     position: absolute;
@@ -60,10 +61,12 @@ span{
     background: #fafafa;
     z-index: 50;
 }
+
 #win-button:hover{
     cursor: pointer;
     background: #ccc;
 }
+
 input{
     display: block;
     width: 30px;
@@ -76,6 +79,7 @@ input{
     transition: color .5s ease-in-out;
 
 }
+
 input > #c{
     display: inline;
     width: 30px;
@@ -84,12 +88,14 @@ input > #c{
     height: 2em;
     position: inherit;
 }
+
 .arrow{
     display: block;
     position: absolute;
     top: 0;
     left: 0;
 }
+
 .example{
     margin: 0 auto;
     padding-top: 80px;
@@ -103,6 +109,7 @@ input > #c{
     top: 280px;
     z-index: 10;
 }
+
 .x-axis{
     width: 640px;
     height: 50px;

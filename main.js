@@ -1,6 +1,3 @@
-/**
- * Created by MAXIMUS on 18.10.2017.
- */
 const step = 28.5;
 var a, b, c, prev_a, stage;
 var values = ["a", "b", "c"];
@@ -13,7 +10,6 @@ function start() {
     stage = 0;
     generateExample();
     currentStage(stage)
-
 }
 
 function currentStage(stage) { //case
@@ -29,7 +25,6 @@ function currentStage(stage) { //case
             checkAnswer(values[stage], b);
             break;
         case 2:
-
             changeQuestionToInput("c");
             checkAnswer(values[stage], c);
             break;
@@ -37,21 +32,6 @@ function currentStage(stage) { //case
             win();
     }
 }
-/*
-function currentStage(stage) { //case
-    if (stage == 0){
-        drawArrow(0, a);
-        showInput(values[stage], a/2);
-        checkAnswer(values[stage],values[stage], a);
-    } else if (stage == 1){
-        drawArrow(a, c);
-        showInput(values[stage], c-b/2);
-        checkAnswer(values[stage], values[stage], b);
-    } else if (stage == 2){
-        win();
-    }
-}
-*/
 function win() {
     var $btn = $('<button/>', {
         type: 'button',
@@ -61,7 +41,19 @@ function win() {
             removeLabels();
             start();
             $(this).remove();});
+
     $btn.appendTo($('#main-container'));
+}
+
+
+/// Labels and inputs
+function showInput(name, val) {
+    $("#main-container").append('<input type="text" name='+name+'>');
+    $("input[name$="+name+"]").css({
+        top: '330px',
+        left: (step)*val + 10 +'px'
+    }).focus();
+
 }
 
 function changeQuestionToInput(id) {
@@ -75,25 +67,24 @@ function changeQuestionToInput(id) {
 }
 
 function changeImputToLabel(name, val) {
-    var position = $('input[name$='+name+']').position();
-    $('input[name$='+name+']').remove();
+    var input = $('input[name$='+name+']');
+    var position = input.position();
+    input.remove();
 
     var $span = $('<span />', {
         id: name,
         class: "label",
         text: val
-    });
-    $span.css({
-        top: position.top + 5,
-        left: position.left + 5});
+        }).css({
+            top: position.top + 5,
+            left: position.left + 5});
     if(stage<2){
         $span.appendTo($('#main-container'));
-    } else{
-        $span.appendTo($('.example'));
-    }
-
-
+        } else{
+            $span.appendTo($('.example'));
+        }
 }
+
 function removeLabels() {
     $('.label').each(function () {
         if($(this).attr('id') != 'c') {
@@ -101,13 +92,8 @@ function removeLabels() {
         }
     });
 }
-/*
-function removeImputs() {
-    $('input').each(function () {
-        $(this).remove();
-    });
-}
-*/
+
+///Generate and refresh example
 function generateExample() {
     a = getRandomInteger(6, 9);
     c = getRandomInteger(11, 14);
@@ -127,11 +113,13 @@ function refreshExample(stage) {
         $('#c').html(c);
     }
 }
+
 function checkAnswer(input_name, val) {
-    $(":input[name$="+input_name+"]").keydown(function() {
+    var $input = $(":input[name$="+input_name+"]");
+    $input.keydown(function() {
        // $(this).val('');
     })
-    $(":input[name$="+input_name+"]").keyup(function() {
+    $input.keyup(function() {
         var value = $(this).val();
         if(value != val){ // допилить
             $(":input[name$="+input_name+"]").css({color: "red"});
@@ -153,44 +141,8 @@ function checkAnswer(input_name, val) {
         }
     })
 }
-/*
-function checkAnswer(input_name, term, val) {
-    $(":input[name$="+input_name+"]").keydown(function() {
-        $(this).val('');
-    })
-    $(":input[name$="+input_name+"]").keyup(function() {
-        var value = $(this).val();
-        if(value != val){ // допилить
-            $(":input[name$="+input_name+"]").css({color: "red"});
 
-                if(stage<3){
-                    console.log(term);
-                    $('#'+term).css({
-                        background: "orange"
-                    });}
-        } else{
-            $('#'+term).css({
-                background: 'transparent'
-            });
-            changeImputToLabel(values[stage], val);
-            stage++;
-            refreshExample(stage);
-            currentStage(stage);
-
-        }
-    })
-}
-*/
-function showInput(name, val) {
-    $("#main-container").append('<input type="text" name='+name+'>');
-    $("input[name$="+name+"]").css({
-        top: '330px',
-        left: (step)*val + 10 +'px'
-    }).focus();
-
-}
-
-
+///SVG drawing
 function SVG(tag) {
     return document.createElementNS('http://www.w3.org/2000/svg', tag);
 }
@@ -215,8 +167,6 @@ function drawArrow(a,b) {
     var args = generateBezier(a, b);
 
     $(SVG('path'))
-        //.attr('d', "M" + a + ",440 A5,5 0 0, 1 " + b +",425")
-        //.attr('d', "M" + a + ",440 C100,350,200,350," + b +" ,425")
         .attr('d', "M" + a*step + ",160 C"+args[0]+","+args[1]+","+args[2]+","+args[3]+"," + b*step +" ,160")
         .attr('stroke', "#f00")
         .attr('fill', 'transparent')
@@ -224,16 +174,17 @@ function drawArrow(a,b) {
         .attr('marker-end', 'url(#arrow)')
         .appendTo($svg);
 };
+
 function generateBezier(a, b) {
-    var result = [x1=0, y1=0, x2=0, y2=0];
+    var result = [];
     result[0] = Math.ceil((a + Math.ceil((b-a)/3))*step);
     result[1] = 80;
-
     result[2] = Math.ceil((b - Math.ceil((b-a)/3))*step);
     result[3] = 80;
-
     return result;
 }
+
+///Other stuff
 function getRandomInteger(min, max) {
     var rand = min + Math.random() * (max - min)
     rand = Math.round(rand);
