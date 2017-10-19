@@ -1,4 +1,5 @@
-const step = 28.5;
+
+const step = 28.2;
 var a, b, c, prev_a, stage;
 var values = ["a", "b", "c"];
 window.onload = function () {
@@ -16,12 +17,12 @@ function currentStage(stage) { //case
     switch (stage){
         case 0:
             drawArrow(0, a);
-            showInput(values[stage], a/2);
+            showInput(values[stage], 0, a);
             checkAnswer(values[stage], a);
             break;
         case 1:
             drawArrow(a, c);
-            showInput(values[stage], c-b/2);
+            showInput(values[stage], a, c);
             checkAnswer(values[stage], b);
             break;
         case 2:
@@ -30,8 +31,10 @@ function currentStage(stage) { //case
             break;
         case 3:
             win();
+            break;
     }
 }
+
 function win() {
     var $btn = $('<button/>', {
         type: 'button',
@@ -47,21 +50,25 @@ function win() {
 
 
 /// Labels and inputs
-function showInput(name, val) {
+function showInput(name, a, b) {
+    var height = generateBezier(a, b);
+    var val = (b+a)/2;
     $("#main-container").append('<input type="text" name='+name+'>');
     $("input[name$="+name+"]").css({
-        top: '330px',
-        left: (step)*val + 10 +'px'
+        top: height[3] + 265 + 'px',
+        left: (step)*val + 12 +'px'
     }).focus();
 
 }
 
 function changeQuestionToInput(id) {
-    $("#c").remove();
+    $(".example>#c").remove();
     $(".example").append('<input type="text" id=c name=c>');
     $("#c").css({
         display: "inline-block",
         height: "50px",
+        width: "50px",
+        fontSize: "40px",
         position: "inherit"
     }).focus();
 }
@@ -98,7 +105,6 @@ function generateExample() {
     a = getRandomInteger(6, 9);
     c = getRandomInteger(11, 14);
     b = c - a;
-    console.log(a, b, c);
     $('#a').html(a);
     $('#b').html(b);
     $('#c').html("?");
@@ -117,8 +123,10 @@ function refreshExample(stage) {
 function checkAnswer(input_name, val) {
     var $input = $(":input[name$="+input_name+"]");
     $input.keydown(function() {
-       // $(this).val('');
-    })
+        if($(this).attr('id') != 'c') {
+            $(this).val('');
+        }
+    });
     $input.keyup(function() {
         var value = $(this).val();
         if(value != val){ // допилить
@@ -165,7 +173,9 @@ function drawArrow(a,b) {
         .attr('fill', '#f00')
         .appendTo($("marker"));
     var args = generateBezier(a, b);
-
+    var returnHeight = function () {
+        return args[2];
+    }
     $(SVG('path'))
         .attr('d', "M" + a*step + ",160 C"+args[0]+","+args[1]+","+args[2]+","+args[3]+"," + b*step +" ,160")
         .attr('stroke', "#f00")
@@ -177,13 +187,13 @@ function drawArrow(a,b) {
 
 function generateBezier(a, b) {
     var result = [];
-    result[0] = Math.ceil((a + Math.ceil((b-a)/3))*step);
-    result[1] = 80;
-    result[2] = Math.ceil((b - Math.ceil((b-a)/3))*step);
-    result[3] = 80;
+    result[0] = (a + (b-a)/3)*step;
+    result[1] = 400/(b-a);
+    result[2] = (b - (b-a)/3)*step;
+    result[3] = 400/(b-a);
+    console.log(result[3]);
     return result;
 }
-
 ///Other stuff
 function getRandomInteger(min, max) {
     var rand = min + Math.random() * (max - min)
