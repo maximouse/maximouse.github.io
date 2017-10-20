@@ -13,7 +13,7 @@ function start() {
     currentStage(stage)
 }
 
-function currentStage(stage) { //case
+function currentStage(stage) {
     switch (stage){
         case 0:
             drawArrow(0, a);
@@ -52,11 +52,12 @@ function win() {
 /// Labels and inputs
 function showInput(name, a, b) {
     var height = generateBezier(a, b);
+    console.log(height[3]);
     var val = (b+a)/2;
     $("#main-container").append('<input type="text" name='+name+'>');
     $("input[name$="+name+"]").css({
-        top: height[3] + 265 + 'px',
-        left: (step)*val + 12 +'px'
+        bottom: 190 - height[3] +'px',
+        left: (step)*val + 10 +'px'
     }).focus();
 
 }
@@ -129,9 +130,8 @@ function checkAnswer(input_name, val) {
     });
     $input.keyup(function() {
         var value = $(this).val();
-        if(value != val){ // допилить
+        if(value != val){
             $(":input[name$="+input_name+"]").css({color: "red"});
-
             if(stage<2){
                 console.log(stage);
                 $('#'+input_name).css({
@@ -147,7 +147,7 @@ function checkAnswer(input_name, val) {
             currentStage(stage);
 
         }
-    })
+    });
 }
 
 ///SVG drawing
@@ -173,9 +173,6 @@ function drawArrow(a,b) {
         .attr('fill', '#f00')
         .appendTo($("marker"));
     var args = generateBezier(a, b);
-    var returnHeight = function () {
-        return args[2];
-    }
     $(SVG('path'))
         .attr('d', "M" + a*step + ",160 C"+args[0]+","+args[1]+","+args[2]+","+args[3]+"," + b*step +" ,160")
         .attr('stroke', "#f00")
@@ -183,20 +180,20 @@ function drawArrow(a,b) {
         .attr('stroke-width', "2")
         .attr('marker-end', 'url(#arrow)')
         .appendTo($svg);
-};
+}
 
 function generateBezier(a, b) {
     var result = [];
     result[0] = (a + (b-a)/3)*step;
-    result[1] = 400/(b-a);
+    result[1] = 300/(b-a);
     result[2] = (b - (b-a)/3)*step;
-    result[3] = 400/(b-a);
+    result[3] = 300/(b-a);
     console.log(result[3]);
     return result;
 }
 ///Other stuff
 function getRandomInteger(min, max) {
-    var rand = min + Math.random() * (max - min)
+    var rand = min + Math.random() * (max - min);
     rand = Math.round(rand);
     return rand;
 }
