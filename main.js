@@ -131,6 +131,7 @@ function checkAnswer(input_name, val) {
 
     $input.keyup(function() {
         var value = $(this).val();
+        if($(this).attr('maxlength') == value.length){
         if(value != val){
             $(":input[name$="+input_name+"]").css({color: "red"});
             if(stage<2){
@@ -147,7 +148,7 @@ function checkAnswer(input_name, val) {
             refreshExample(stage);
             currentStage(stage);
 
-        }
+        }}
     });
 }
 
