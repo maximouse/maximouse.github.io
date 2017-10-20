@@ -131,22 +131,26 @@ function checkAnswer(input_name, val) {
 
     $input.keyup(function() {
         var value = $(this).val();
+        if($(this).attr('maxlength') != value.length) {
+            $input.css({color: "#333"});
+        }
         if($(this).attr('maxlength') == value.length){
-        if(value != val){
-            $(":input[name$="+input_name+"]").css({color: "red"});
-            if(stage<2){
-                console.log(stage);
-                $('#'+input_name).css({
-                    background: "orange"
-                });}
+            if(value != val){
+                    $input.css({color: "red"});
+                if(stage<2){
+                    console.log(stage);
+                    $('#'+input_name).css({
+                        background: "orange"
+                    });}
         } else{
-            $('#'+input_name).css({
-                background: 'transparent'
-            });
-            changeImputToLabel(values[stage], val);
-            stage++;
-            refreshExample(stage);
-            currentStage(stage);
+
+                $('#'+input_name).css({
+                    background: 'transparent'
+                });
+                changeImputToLabel(values[stage], val);
+                stage++;
+                refreshExample(stage);
+                currentStage(stage);
 
         }}
     });
