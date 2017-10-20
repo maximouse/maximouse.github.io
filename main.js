@@ -1,6 +1,6 @@
 
 const step = 28.2;
-var a, b, c, stage;
+var a, b, c, prev_a, stage;
 var values = ["a", "b", "c"];
 window.onload = function () {
     start();
@@ -54,7 +54,7 @@ function showInput(name, a, b) {
     var height = generateBezier(a, b);
     console.log(height[3]);
     var val = (b+a)/2;
-    $("#main-container").append('<input type="text" name='+name+'>');
+    $("#main-container").append('<input type="text" name='+name+' maxlength="1">');
     $("input[name$="+name+"]").css({
         bottom: 190 - height[3] +'px',
         left: (step)*val + 10 +'px'
@@ -64,7 +64,7 @@ function showInput(name, a, b) {
 
 function changeQuestionToInput(id) {
     $(".example>#c").remove();
-    $(".example").append('<input type="text" id=c name=c>');
+    $(".example").append('<input type="text" id=c name=c maxlength="2">');
     $("#c").css({
         display: "inline-block",
         height: "50px",
@@ -124,10 +124,11 @@ function refreshExample(stage) {
 function checkAnswer(input_name, val) {
     var $input = $(":input[name$="+input_name+"]");
     $input.keydown(function() {
-        if($(this).attr('id') != 'c') {
+        if($(this).attr('maxlength') == $(this).val().length) {
             $(this).val('');
         }
     });
+
     $input.keyup(function() {
         var value = $(this).val();
         if(value != val){
