@@ -1,6 +1,6 @@
 
 const step = 28.2;
-var a, b, c, prev_a, stage;
+var a, b, c, stage;
 var values = ["a", "b", "c"];
 window.onload = function () {
     start();
