@@ -3,7 +3,7 @@ $(document).ready(function(){
     var native_width = 0;
     var native_height = 0;
     //$(".large").css("background","url('" + $(".small").attr("src") + "') no-repeat");
-    $(".large").css("background","url('universeL.jpg') no-repeat");
+    $(".large").css("background","url('universe4k.jpg') no-repeat");
 
 
     //Now the mousemove function
@@ -23,8 +23,8 @@ $(document).ready(function(){
             //This code is wrapped in the .load function which is important.
             //width and height of the object would return 0 if accessed before
             //the image gets loaded.
-            native_width = image_object.width * 2;
-            native_height = image_object.height  * 2;
+            native_width = image_object.width * 1;
+            native_height = image_object.height  * 1;
         }
         else
         {
