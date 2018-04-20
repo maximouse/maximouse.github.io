@@ -2,9 +2,11 @@ $(document).ready(function(){
 
     var native_width = 0;
     var native_height = 0;
+    var win = false;
+    var dog1 = {x: 340, y: 290, checked: false}, dog2 = {x: 750, y: 380, checked: false}, dog3 = {x: 160, y: 765, checked: false}, dog4 = {x: 720, y: 790, checked: false}, dog5 = {x: 410, y: 1240, checked: false};
+
     //$(".large").css("background","url('" + $(".small").attr("src") + "') no-repeat");
     $(".large").css("background","url('universe4k.jpg') no-repeat");
-
 
     //Now the mousemove function
     $(".magnify").mousemove(function(e){
@@ -25,17 +27,56 @@ $(document).ready(function(){
             //the image gets loaded.
             native_width = image_object.width * 1;
             native_height = image_object.height  * 1;
+
         }
         else
         {
             //x/y coordinates of the mouse
             //This is the position of .magnify with respect to the document.
             var magnify_offset = $(this).offset();
+            var range = 100;
             //We will deduct the positions of .magnify from the mouse positions with
             //respect to the document to get the mouse positions with respect to the
             //container(.magnify)
             var mx = e.pageX - magnify_offset.left ;
             var my = e.pageY - magnify_offset.top ;
+            if((dog1.x+range>e.pageX && e.pageX>dog1.x-range) && (dog1.y+range>e.pageY && e.pageY>dog1.y-range) && dog1.checked == false){
+
+                console.log("Hit!");
+                dog1.checked = true;
+                console.log(dog1.checked);
+            }
+            if((dog2.x+range>e.pageX && e.pageX>dog2.x-range) && (dog2.y+range>e.pageY && e.pageY>dog2.y-range) && dog2.checked == false){
+
+                console.log("Hit! 2");
+                dog2.checked = true;
+                console.log(dog2.checked);
+            }
+            if((dog3.x+range>e.pageX && e.pageX>dog3.x-range) && (dog3.y+range>e.pageY && e.pageY>dog3.y-range) && dog3.checked == false){
+
+                console.log("Hit 3!");
+                dog3.checked = true;
+                console.log(dog3.checked);
+            }
+            if((dog4.x+range>e.pageX && e.pageX>dog4.x-range) && (dog4.y+range>e.pageY && e.pageY>dog4.y-range) && dog4.checked == false){
+
+                console.log("Hit 4!");
+                dog4.checked = true;
+                console.log(dog4.checked);
+            }
+            if((dog5.x+range>e.pageX && e.pageX>dog5.x-range) && (dog5.y+range>e.pageY && e.pageY>dog5.y-range) && dog5.checked == false){
+
+                console.log("Hit 5!");
+                dog5.checked = true;
+                console.log(dog5.checked);
+            }
+
+            if(dog1.checked == true && dog2.checked == true && dog3.checked == true && dog4.checked == true && dog5.checked == true && win==false){
+                win = true;
+                console.log("win!");
+                $(".small").attr('src', 'universe4k.jpg');
+            }
+            console.log(e.pageX,  e.pageY);
 
             //Finally the code to fade out the glass if the mouse is outside the container
             if(mx < $(this).width() && my < $(this).height() && mx > 0 && my > 0)
