@@ -1,5 +1,21 @@
 $(document).ready(function(){
 
+
+    $('#start').show();
+
+    $('.hover_bkgr_fricc').click(function(){
+
+        $('.hover_bkgr_fricc').hide();
+
+    });
+    $('.popupCloseButton').click(function(){
+
+        $('.hover_bkgr_fricc').hide();
+
+    });
+
+
+
     var native_width = 0;
     var native_height = 0;
     var win = false;
@@ -34,7 +50,7 @@ $(document).ready(function(){
             //x/y coordinates of the mouse
             //This is the position of .magnify with respect to the document.
             var magnify_offset = $(this).offset();
-            var range = 100;
+            var range = 120;
             //We will deduct the positions of .magnify from the mouse positions with
             //respect to the document to get the mouse positions with respect to the
             //container(.magnify)
@@ -75,8 +91,18 @@ $(document).ready(function(){
                 win = true;
                 console.log("win!");
                 $(".small").attr('src', 'universe4k.jpg');
+                //$(".message").text('Молодец!');
+                //$('#win').show();
+                $('#win').show();
+
+                $('.popupCloseButton1').click(function(){
+
+                    $('.hover_bkgr_fricc1').hide();
+
+                });
             }
             console.log(e.pageX,  e.pageY);
+
 
             //Finally the code to fade out the glass if the mouse is outside the container
             if(mx < $(this).width() && my < $(this).height() && mx > 0 && my > 0)
@@ -110,3 +136,8 @@ $(document).ready(function(){
         }
     })
 })
+
+$(window).load(function () {
+
+
+});
