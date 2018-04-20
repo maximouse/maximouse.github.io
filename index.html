@@ -2,18 +2,37 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Axis</title>
-    <script src="prefixfree.min.js"></script>
+    <title>Title</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" ></script>
+    <script src="main.js"></script>
 </head>
 <body>
-<p class="title">Тестовое задание «Ось - 2» <br> Марценюк Максим</p>
-<div id="main-container">
-    <div class="example"><span id="a"></span> + <span id="b"></span> = <span id="c"></span></div>
-    <svg class="arrow" width="591px" height="200px"></svg>
-    <img class="x-axis" src="sprite.png" alt="sprite">
+<!-- Lets make a simple image magnifier -->
+<div class="magnify">
+
+    <!-- This is the magnifying glass which will contain the original/large version -->
+    <div class="large" ></div>
+
+    <!-- This is the small image -->
+    <img class="small" src="universeHD.jpg"/>
+
 </div>
-<script src="https://code.jquery.com/jquery-3.2.1.min.js" ></script>
-<script src="main.js"></script>
+
+<div id="start" class="hover_bkgr_fricc">
+    <span class="helper"></span>
+    <div>
+        <div class="popupCloseButton">Ясно</div>
+        <p class="message">У тебя появился телескоп!<br />Тыкай пальчиком и исследуй вселенную!</p>
+    </div>
+</div>
+<div id="win" class="hover_bkgr_fricc1">
+    <span class="helper"></span>
+    <div>
+        <div class="popupCloseButton1"><a href="tel:+79264657426"> Call me)</a></div>
+        <p class="message">Молодец! <br> </p>
+    </div>
+</div>
+<div class="counter">5</div>
 </body>
 </html>
