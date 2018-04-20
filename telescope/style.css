@@ -33,6 +33,20 @@ body{
 p{
     font-size: 35px;
 }
+a{
+    color: black;
+
+}
+.counter{
+    font-size: 300px;
+    position: absolute;
+    color: aliceblue;
+    top: 40%;
+    left: 42%;
+    text-shadow: 5px 5px 10px #555555;
+    display: none;
+
+}
 .hover_bkgr_fricc{
     background:rgba(0,0,0,.4);
     cursor:pointer;
